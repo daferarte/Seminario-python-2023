@@ -1,5 +1,7 @@
 FROM python:3.9.16-alpine
 
+USER root
+
 RUN apk add --update \
     tzdata
 
@@ -25,4 +27,4 @@ COPY ./entrypoint.sh .
 
 COPY . .
 
-ENTRYPOINT [ "/usr/src/drogueria/entrypoint.sh" ]
+ENTRYPOINT ["/usr/src/drogueria/entrypoint.sh"]

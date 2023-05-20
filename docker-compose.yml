@@ -10,7 +10,7 @@ services:
     volumes:
       - ./Drogueria/:/usr/src/drogueria
     ports:
-      - 8000:8000
+      - "80:8000"
     env_file:
       - ./.env_dev
 
@@ -18,8 +18,19 @@ services:
     image: postgres
     container_name: db
     ports:
-      - 5432:5432
+      - "5432:5432"
+    volumes:
+      - ./data/:/var/lib/postgresql/data/
     environment:
       POSTGRES_PASSWORD: 12345
       POSTGRES_USER: drogueria
       POSTGRES_DB: drogueria
+  
+  pgadmin:
+    container_name: pgadminps
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: daniel@daniel.com
+      PGADMIN_DEFAULT_PASSWORD: 12345
+    ports:
+      - "8081:80"
