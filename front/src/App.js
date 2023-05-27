@@ -1,51 +1,49 @@
 import React, {useEffect, useState} from "react";
 
-const nombres=["Daniel","Eduardo","Cody","Pepito"];
+const Form = () =>{
+  let [title,setTitle]=useState("");
+  let [body,setBody]=useState("");
 
+  const sendForm = (ev) =>{
+    ev.preventDefault()
 
-function Saludo({idioma}){
-    return(
-      <div>
-        {
-          idioma==="es" ? <p>Como estan?</p> : <p>How are you?</p>
-        }    
-      </div>
-    )
-  
-}
-
-const Button = () =>{
-  const [conteo, actConteo] = useState(0); //hook
-
-  useEffect(()=>{
-    console.log("me ejecuto");
-
-    return ()=>{ //se ejecuta al finalizar
-      console.log("adios");
-    }
-  },[])
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: title,
+        body: body,
+        userId: 1,
+      }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+      },
+    })
+      .then((response) => {
+        response.json()
+      })
+      .then((json) => console.log(json));
+  }
 
   return(
-    <div>
-      <p> Precionado: {conteo} </p>
-      <button onClick={()=>actConteo(conteo+1)}>Click me!</button>
-    </div>
+    <form onSubmit={(ev)=>sendForm(ev)}>
+      <div>
+        <label htmlFor="title">Titulo</label>
+        <input type="text" id="title" value={title} onChange={(evt)=>setTitle(evt.target.value)}></input>
+      </div>
+      <div>
+        <label htmlFor="body">Publicacion</label>
+        <textarea id="body" onChange={(evt)=>setBody(evt.target.value)}></textarea>
+      </div>
+      <input type="submit" value="enviar"/>
+    </form>
   )
 }
 
 function App() {
-  const [showButton, setshowButton] = useState(true);
+  
   return (
-    <div >
-      <h1>Hola estudiantes</h1>
-      <Saludo idioma="es"/>
-      <ul>
-        {
-          nombres.map((nombre,index) => <li key={index}>{nombre}</li>)
-        }
-      </ul>
-      <button onClick={()=>setshowButton(!showButton)}>eliminar</button>
-      { showButton && <Button/>}
+    <div>
+      <Form/>
     </div>
   );
 }
