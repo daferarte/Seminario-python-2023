@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 const nombres=["Daniel","Eduardo","Cody","Pepito"];
 
@@ -16,6 +16,11 @@ function Saludo({idioma}){
 
 const Button = () =>{
   const [conteo, actConteo] = useState(0); //hook
+
+  useEffect(()=>{
+    console.log("me ejecuto");
+  })
+
   return(
     <div>
       <p> Precionado: {conteo} </p>
