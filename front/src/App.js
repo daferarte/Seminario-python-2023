@@ -19,7 +19,11 @@ const Button = () =>{
 
   useEffect(()=>{
     console.log("me ejecuto");
-  },[]) //cargue cuando inicia el componente
+
+    return ()=>{ //se ejecuta al finalizar
+      console.log("adios");
+    }
+  },[])
 
   return(
     <div>
@@ -30,6 +34,7 @@ const Button = () =>{
 }
 
 function App() {
+  const [showButton, setshowButton] = useState(true);
   return (
     <div >
       <h1>Hola estudiantes</h1>
@@ -39,7 +44,8 @@ function App() {
           nombres.map((nombre,index) => <li key={index}>{nombre}</li>)
         }
       </ul>
-      <Button/>
+      <button onClick={()=>setshowButton(!showButton)}>eliminar</button>
+      { showButton && <Button/>}
     </div>
   );
 }
