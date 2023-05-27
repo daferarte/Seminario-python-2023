@@ -1,20 +1,16 @@
 import React from "react";
 
-function Saludo(props){
-
-  if(props.idioma === "es"){
+function Saludo({idioma}){
     return(
       <div>
-        Como estan?
+        {
+          idioma==="es" && <p>Como estan?</p>
+        }
+        {
+          idioma==="en" && <p>How are you?</p>
+        }
       </div>
     )
-  }else{
-    return(
-      <div>
-        how are you?
-      </div>
-    )
-  }
   
 }
 
@@ -22,7 +18,7 @@ function App() {
   return (
     <div >
       <h1>Hola estudiantes</h1>
-      <Saludo idioma="es"/>
+      <Saludo idioma="en"/>
     </div>
   );
 }
