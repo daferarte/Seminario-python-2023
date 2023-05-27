@@ -1,50 +1,51 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
+import {BrowserRouter, Routes, Route, Link, Outlet, redirect, useNavigate, Navigate} from 'react-router-dom';
 
-const Form = () =>{
-  let [title,setTitle]=useState("");
-  let [body,setBody]=useState("");
+let NotImplemented =()=>{
+  return (
+    <div>
+      <h1>Esta pagina no esta lista</h1>
+      <Link to="/">Ir al inicio</Link>
+    </div>
+  )
+}
 
-  const sendForm = (ev) =>{
-    ev.preventDefault()
-
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-      method: 'POST',
-      body: JSON.stringify({
-        title: title,
-        body: body,
-        userId: 1,
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-      .then((response) => {
-        response.json()
-      })
-      .then((json) => console.log(json));
+let ProductosOutlet =()=>{
+  let navigate = useNavigate();
+  let redirect = () =>{
+    navigate('/')
   }
-
   return(
-    <form onSubmit={(ev)=>sendForm(ev)}>
-      <div>
-        <label htmlFor="title">Titulo</label>
-        <input type="text" id="title" value={title} onChange={(evt)=>setTitle(evt.target.value)}></input>
-      </div>
-      <div>
-        <label htmlFor="body">Publicacion</label>
-        <textarea id="body" onChange={(evt)=>setBody(evt.target.value)}></textarea>
-      </div>
-      <input type="submit" value="enviar"/>
-    </form>
+    <>
+      <p>hola desde productos</p>
+      <button onClick={redirect}>Ir al home</button>
+    </>
   )
 }
 
 function App() {
   
   return (
-    <div>
-      <Form/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        
+        <Route path="/" element={<NotImplemented/>}/>
+
+        <Route path="productos" element={<ProductosOutlet/>}>
+          <Route path="add" element={<NotImplemented/>}/>
+          <Route path="edit" element={<NotImplemented/>}/>
+          <Route path="delete" element={<NotImplemented/>}/>
+        </Route>
+
+        <Route path="categorias" element={<NotImplemented/>}>
+          <Route path="add" element={<NotImplemented/>}/>
+          <Route path="edit" element={<NotImplemented/>}/>
+          <Route path="delete" element={<NotImplemented/>}/>
+        </Route>
+
+      </Routes>
+      
+    </BrowserRouter>
   );
 }
 
