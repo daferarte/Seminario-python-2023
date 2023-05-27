@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 const nombres=["Daniel","Eduardo","Cody","Pepito"];
 
@@ -14,6 +14,16 @@ function Saludo({idioma}){
   
 }
 
+const Button = () =>{
+  const [conteo, actConteo] = useState(0); //hook
+  return(
+    <div>
+      <p> Precionado: {conteo} </p>
+      <button onClick={()=>actConteo(conteo+1)}>Click me!</button>
+    </div>
+  )
+}
+
 function App() {
   return (
     <div >
@@ -21,9 +31,10 @@ function App() {
       <Saludo idioma="es"/>
       <ul>
         {
-          nombres.map(nombre => <li>{nombre}</li>)
+          nombres.map((nombre,index) => <li key={index}>{nombre}</li>)
         }
       </ul>
+      <Button/>
     </div>
   );
 }
