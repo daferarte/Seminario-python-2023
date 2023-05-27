@@ -19,7 +19,7 @@ const Button = () =>{
 
   useEffect(()=>{
     console.log("me ejecuto");
-  })
+  },[]) //cargue cuando inicia el componente
 
   return(
     <div>
